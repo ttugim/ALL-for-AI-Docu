@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI 작업에 필요한 무료 문서 변환 도구입니다. PDF 압축, 분할, 병합, 이미지 PDF 변환, TXT PDF 변환, OCR을 브라우저에서 처리합니다." />
+  <title>AI 문서 변환 도구 - PDF 압축, 분할, 병합, OCR</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="logo" href="index.html">AI File Tools</a>
+      <div class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="#tools">도구</a>
+        <a href="about.html">소개</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy.html">개인정보</a>
+        <a href="contact.html">문의</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">서버 업로드 없는 무료 변환 도구</p>
+          <h1>AI 작업용 무료 문서 변환 도구</h1>
+          <p class="hero-text">
+            PDF 압축, 분할, 병합부터 이미지 PDF 변환, 텍스트 PDF 변환, OCR 글자 추출까지
+            브라우저에서 안전하게 처리하세요.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#tools">바로 사용하기</a>
+            <a class="btn ghost" href="privacy.html">보안 방식 보기</a>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div>
+            <strong>PDF</strong>
+            <span>압축, 분할, 병합</span>
+          </div>
+          <div>
+            <strong>OCR</strong>
+            <span>이미지 속 글자 추출</span>
+          </div>
+          <div>
+            <strong>Local</strong>
+            <span>파일은 브라우저에서 처리</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="section container">
+      <div class="section-heading">
+        <p class="eyebrow">Tools</p>
+        <h2>AI에 넣기 좋은 파일로 준비하세요</h2>
+        <p>모든 기능은 백엔드 서버 없이 HTML, CSS, JavaScript로 작동합니다. 사용자가 선택한 파일은 서버로 업로드되지 않습니다.</p>
+      </div>
+
+      <div class="tool-grid">
+        <article class="tool-card">
+          <h3>PDF 압축</h3>
+          <p>PDF 페이지를 이미지로 변환한 뒤 JPEG 품질을 조절해 용량을 줄입니다.</p>
+
+          <label for="compressFile">PDF 파일</label>
+          <input id="compressFile" type="file" accept="application/pdf" />
+
+          <fieldset>
+            <legend>압축 강도</legend>
+            <label><input type="radio" name="compressionLevel" value="low" checked /> 낮은 압축: 품질 좋음</label>
+            <label><input type="radio" name="compressionLevel" value="medium" /> 보통 압축: 균형</label>
+            <label><input type="radio" name="compressionLevel" value="high" /> 강한 압축: 용량 우선</label>
+          </fieldset>
+
+          <button id="compressButton" class="btn primary full" type="button">PDF 압축하기</button>
+          <p id="compressStatus" class="status" aria-live="polite"></p>
+
+          <div id="compressResult" class="result-box hidden">
+            <p>압축 전: <strong id="compressBefore">-</strong></p>
+            <p>압축 후: <strong id="compressAfter">-</strong></p>
+            <p>감소율: <strong id="compressReduction">-</strong></p>
+            <a id="compressDownload" class="btn download" href="#" download="compressed.pdf">다운로드</a>
+          </div>
+
+          <p class="small">압축 후 PDF는 이미지 PDF가 되어 텍스트 선택이 어려울 수 있습니다.</p>
+        </article>
+
+        <article class="tool-card">
+          <h3>PDF 분할</h3>
+          <p>원하는 페이지만 골라 새 PDF로 저장합니다.</p>
+
+          <label for="splitFile">PDF 파일</label>
+          <input id="splitFile" type="file" accept="application/pdf" />
+
+          <p class="small">전체 페이지 수: <strong id="splitTotalPages">-</strong></p>
+
+          <label for="splitRange">페이지 범위</label>
+          <input id="splitRange" type="text" placeholder="예: 1-3,5,7-9" />
+
+          <button id="splitButton" class="btn primary full" type="button">페이지 추출하기</button>
+          <p id="splitStatus" class="status" aria-live="polite"></p>
+
+          <div id="splitResult" class="result-box hidden">
+            <a id="splitDownload" class="btn download" href="#" download="extracted.pdf">다운로드</a>
+          </div>
+        </article>
+
+        <article class="tool-card">
+          <h3>PDF 병합</h3>
+          <p>여러 PDF를 하나의 파일로 합칩니다.</p>
+
+          <label for="mergeFiles">PDF 파일 여러 개</label>
+          <input id="mergeFiles" type="file" accept="application/pdf" multiple />
+
+          <ul id="mergeList" class="file-list"></ul>
+
+          <button id="mergeButton" class="btn primary full" type="button">PDF 병합하기</button>
+          <p id="mergeStatus" class="status" aria-live="polite"></p>
+
+          <div id="mergeResult" class="result-box hidden">
+            <a id="mergeDownload" class="btn download" href="#" download="merged.pdf">다운로드</a>
+          </div>
+        </article>
+
+        <article class="tool-card">
+          <h3>이미지 → PDF</h3>
+          <p>JPG, PNG, WEBP 이미지를 PDF 문서로 변환합니다.</p>
+
+          <label for="imageFiles">이미지 파일</label>
+          <input id="imageFiles" type="file" accept="image/*" multiple />
+
+          <ul id="imageList" class="file-list"></ul>
+
+          <button id="imagePdfButton" class="btn primary full" type="button">이미지를 PDF로 변환</button>
+          <p id="imagePdfStatus" class="status" aria-live="polite"></p>
+
+          <div id="imagePdfResult" class="result-box hidden">
+            <a id="imagePdfDownload" class="btn download" href="#" download="images.pdf">다운로드</a>
+          </div>
+        </article>
+
+        <article class="tool-card">
+          <h3>TXT → PDF</h3>
+          <p>텍스트 파일을 AI 제출용 또는 보관용 PDF로 바꿉니다.</p>
+
+          <label for="textFile">TXT 파일</label>
+          <input id="textFile" type="file" accept=".txt,text/plain" />
+
+          <label for="textContent">텍스트 미리보기 / 직접 입력</label>
+          <textarea id="textContent" rows="8" placeholder="TXT 파일을 선택하거나 여기에 직접 입력하세요."></textarea>
+
+          <button id="textPdfButton" class="btn primary full" type="button">텍스트를 PDF로 변환</button>
+          <p id="textPdfStatus" class="status" aria-live="polite"></p>
+
+          <div id="textPdfResult" class="result-box hidden">
+            <a id="textPdfDownload" class="btn download" href="#" download="text.pdf">다운로드</a>
+          </div>
+        </article>
+
+        <article class="tool-card">
+          <h3>이미지 OCR</h3>
+          <p>사진이나 캡처 이미지 속 글자를 텍스트로 추출합니다.</p>
+
+          <label for="ocrImage">OCR 이미지</label>
+          <input id="ocrImage" type="file" accept="image/*" />
+
+          <button id="ocrButton" class="btn primary full" type="button">OCR 실행하기</button>
+          <p id="ocrStatus" class="status" aria-live="polite"></p>
+
+          <label for="ocrOutput">추출된 텍스트</label>
+          <textarea id="ocrOutput" rows="8" placeholder="OCR 결과가 여기에 표시됩니다."></textarea>
+
+          <div class="button-row">
+            <button id="copyOcrButton" class="btn soft" type="button">복사</button>
+            <button id="downloadOcrButton" class="btn soft" type="button">TXT 다운로드</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section band">
+      <div class="container content-grid">
+        <article>
+          <h2>이 사이트의 장점</h2>
+          <p>AI File Tools는 ChatGPT, Claude, Gemini 같은 AI 도구에 자료를 넣기 전에 파일을 정리할 수 있는 무료 문서 변환 사이트입니다. PDF 용량을 줄이고, 필요한 페이지만 추출하고, 여러 문서를 합치고, 이미지나 텍스트를 PDF로 바꿀 수 있습니다.</p>
+          <p>가장 큰 장점은 파일을 서버로 업로드하지 않는다는 점입니다. 파일 선택은 브라우저 안에서 이루어지고, JavaScript가 사용자의 기기에서 직접 처리합니다.</p>
+        </article>
+
+        <article>
+          <h2>AI 작업 전에 필요한 이유</h2>
+          <p>AI에 파일을 업로드할 때 용량 제한, 페이지 제한, 파일 형식 제한을 만나는 경우가 많습니다. 이럴 때 PDF 압축, 분할, 병합, 이미지 PDF 변환 기능을 사용하면 자료를 더 깔끔하게 준비할 수 있습니다.</p>
+          <p>이미지 속 글자를 OCR로 뽑아 텍스트로 만들면 AI에게 내용을 붙여 넣어 요약, 번역, 정리, 표 변환 등을 요청하기 쉽습니다.</p>
+        </article>
+
+        <article>
+          <h2>PDF 압축이 필요한 경우</h2>
+          <p>스캔본, 이미지가 많은 PDF, 과제 제출용 문서, 이메일 첨부 문서의 용량이 클 때 PDF 압축 기능이 유용합니다. 낮은 압축은 품질을 우선하고, 강한 압축은 용량 감소를 우선합니다.</p>
+          <p>텍스트 위주의 PDF는 이미 용량이 작을 수 있어 압축 효과가 작을 수 있습니다. 또한 압축 결과는 이미지 PDF가 될 수 있어 텍스트 선택이 어려울 수 있습니다.</p>
+        </article>
+
+        <article>
+          <h2>이미지와 텍스트 변환</h2>
+          <p>이미지 PDF 변환 기능은 여러 장의 사진, 캡처 이미지, 스캔 이미지를 하나의 PDF로 만들 때 좋습니다. TXT PDF 변환 기능은 메모장 파일이나 정리한 원고를 보기 좋은 PDF로 저장할 때 사용할 수 있습니다.</p>
+          <p>OCR 기능은 이미지 속 글자를 텍스트로 추출합니다. OCR은 브라우저에서 실행되기 때문에 큰 이미지는 처리 시간이 오래 걸릴 수 있습니다.</p>
+        </article>
+
+        <article>
+          <h2>자주 묻는 질문</h2>
+          <p><strong>파일이 서버에 올라가나요?</strong><br />아니요. 파일은 브라우저 안에서 처리됩니다.</p>
+          <p><strong>OCR은 무엇인가요?</strong><br />이미지 속 글자를 인식해서 텍스트로 바꾸는 기능입니다.</p>
+          <p><strong>TXT를 OCR로 바꾸나요?</strong><br />TXT는 이미 텍스트이므로 OCR이 아니라 PDF 변환 기능으로 처리합니다.</p>
+        </article>
+
+        <article>
+          <h2>개인정보 보호 안내</h2>
+          <p>이 사이트는 PDF와 이미지 처리 기능을 브라우저에서 실행합니다. 사이트 운영자는 사용자가 선택한 파일의 내용을 볼 수 없습니다.</p>
+          <p>단, pdf.js, pdf-lib, Tesseract.js 같은 외부 라이브러리는 CDN에서 불러옵니다. 향후 광고 서비스가 적용되면 쿠키가 사용될 수 있습니다.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 AI File Tools. 브라우저 기반 무료 문서 변환 도구.</p>
+      <div>
+        <a href="privacy.html">개인정보</a>
+        <a href="contact.html">문의</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
